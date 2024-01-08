@@ -665,5 +665,5 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="المبدع التلقائي للتصميم ✨"))
 # استخدم توكن البوت المخزن في ملف secrets
 keep_alive()
-my_secret = os.environ['discord']
+my_secret = os.environ['token']
 bot.run(my_secret)
