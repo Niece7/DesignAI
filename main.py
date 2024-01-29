@@ -660,8 +660,6 @@ async def skin_command(ctx, skin_number: int):
 
 @bot.command(name='bg')
 async def remove_bg(ctx):
-    remove_bg_api_key = os.environ['RemoveBG']
-
     # التحقق من وجود صورة مرفقة مع الأمر
     if ctx.message.attachments:
         image_url = ctx.message.attachments[0].url
@@ -695,5 +693,6 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="المبدع التلقائي للتصميم ✨"))
 # استخدم توكن البوت المخزن في ملف secrets
 keep_alive()
+my_secret = os.environ['remove']
 my_secret = os.environ['token']
 bot.run(my_secret)
