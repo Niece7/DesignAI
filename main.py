@@ -14,6 +14,39 @@ async def on_ready():
 # قم بتحديد معرفات المستخدمين المرخص لهم
 authorized_users = [413611451589328921, 874935399108186133,465153546808197130,924280105411412049,589352142888763393,680066453713715240,780412684482904064,829409123115204648]
 
+@bot.command(name='bg')
+@commands.check(is_allowed_channel)
+async def remove_bg(ctx):
+    # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
+    if ctx.author.id in authorized_users:
+    remove_bg_api_key = os.environ['RemoveBG']
+
+    # التحقق من وجود صورة مرفقة مع الأمر
+    if ctx.message.attachments:
+        image_url = ctx.message.attachments[0].url
+
+        # إرسال رسالة الإعلان ببداية العملية
+        processing_message = await ctx.send("جاري إزالة الخلفية، الرجاء الانتظار...")
+
+        response = requests.post(
+            'https://api.remove.bg/v1.0/removebg',
+            data={'size': 'auto', 'image_url': image_url},
+            headers={'X-Api-Key': remove_bg_api_key},
+        )
+
+        if response.status_code == requests.codes.ok:
+            with open('no-bg.png', 'wb') as out:
+                out.write(response.content)
+
+            # إرسال الصورة إلى القناة
+            await ctx.send(file=discord.File('no-bg.png'))
+            # حذف رسالة الإعلان بنجاح العملية بعد ظهور الصورة
+            await processing_message.delete()
+        else:
+            await processing_message.edit(content=f"حدث خطأ: {response.status_code}, {response.text}")
+    else:
+        await ctx.send("الرجاء إرفاق صورة مع الأمر /bg")
+        
 @bot.command(name='skin')
 async def skin_command(ctx, skin_number: int):
     # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
