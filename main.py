@@ -15,7 +15,6 @@ async def on_ready():
 authorized_users = [413611451589328921, 874935399108186133,465153546808197130,924280105411412049,589352142888763393,680066453713715240,780412684482904064,829409123115204648]
 
 @bot.command(name='bg')
-@commands.check(is_allowed_channel)
 async def remove_bg(ctx):
     # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
     if ctx.author.id in authorized_users:
