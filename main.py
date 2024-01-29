@@ -659,7 +659,6 @@ async def skin_command(ctx, skin_number: int):
         await ctx.send(embed=embed)
 
 @bot.command(name='bg')
-@commands.check(is_allowed_channel)
 async def remove_bg(ctx):
     remove_bg_api_key = os.environ['RemoveBG']
 
