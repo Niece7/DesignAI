@@ -19,7 +19,7 @@ authorized_users = [413611451589328921, 874935399108186133,465153546808197130,92
 async def remove_bg(ctx):
     # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
     if ctx.author.id in authorized_users:
-    remove_bg_api_key = os.environ['RemoveBG']
+        remove_bg_api_key = os.environ['RemoveBG']
 
     # التحقق من وجود صورة مرفقة مع الأمر
     if ctx.message.attachments:
