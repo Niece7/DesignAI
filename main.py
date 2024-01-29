@@ -658,35 +658,6 @@ async def skin_command(ctx, skin_number: int):
         )
         await ctx.send(embed=embed)
 
-@bot.command(name='bg')
-async def remove_bg(ctx):
-    remove_bg_api_key = os.environ['remove']
-    # التحقق من وجود صورة مرفقة مع الأمر
-    if ctx.message.attachments:
-        image_url = ctx.message.attachments[0].url
-
-        # إرسال رسالة الإعلان ببداية العملية
-        processing_message = await ctx.send("جاري إزالة الخلفية، الرجاء الانتظار...")
-
-        response = requests.post(
-            'https://api.remove.bg/v1.0/removebg',
-            data={'size': 'auto', 'image_url': image_url},
-            headers={'X-Api-Key': remove_bg_api_key},
-        )
-
-        if response.status_code == requests.codes.ok:
-            with open('no-bg.png', 'wb') as out:
-                out.write(response.content)
-
-            # إرسال الصورة إلى القناة
-            await ctx.send(file=discord.File('no-bg.png'))
-            # حذف رسالة الإعلان بنجاح العملية بعد ظهور الصورة
-            await processing_message.delete()
-        else:
-            await processing_message.edit(content=f"حدث خطأ: {response.status_code}, {response.text}")
-    else:
-        await ctx.send("الرجاء إرفاق صورة مع الأمر /bg")
-
 # Status Profile Bot
 @bot.event
 async def on_ready():
@@ -694,6 +665,5 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="المبدع التلقائي للتصميم ✨"))
 # استخدم توكن البوت المخزن في ملف secrets
 keep_alive()
-my_secret = os.environ['remove']
 my_secret = os.environ['token']
 bot.run(my_secret)
