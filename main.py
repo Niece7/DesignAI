@@ -660,7 +660,7 @@ async def skin_command(ctx, skin_number: int):
 
 @bot.command(name='bg')
 async def remove_bg(ctx):
-        remove_bg_api_key = os.environ['RemoveBG']
+    remove_bg_api_key = os.environ['remove']
     # التحقق من وجود صورة مرفقة مع الأمر
     if ctx.message.attachments:
         image_url = ctx.message.attachments[0].url
