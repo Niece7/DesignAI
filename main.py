@@ -45,7 +45,7 @@ async def remove_bg(ctx):
             await processing_message.edit(content=f"حدث خطأ: {response.status_code}, {response.text}")
     else:
         await ctx.send("الرجاء إرفاق صورة مع الأمر /bg")
-        else:
+    else:
         embed = discord.Embed(
             title="التصريح ممنوع",
             description="ليس لديك الصلاحية للوصول إلى هذا الخيار.",
