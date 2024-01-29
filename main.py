@@ -45,6 +45,13 @@ async def remove_bg(ctx):
             await processing_message.edit(content=f"حدث خطأ: {response.status_code}, {response.text}")
     else:
         await ctx.send("الرجاء إرفاق صورة مع الأمر /bg")
+        else:
+        embed = discord.Embed(
+            title="التصريح ممنوع",
+            description="ليس لديك الصلاحية للوصول إلى هذا الخيار.",
+            color=discord.Color.red()
+        )
+        await ctx.send(embed=embed)
         
 @bot.command(name='skin')
 async def skin_command(ctx, skin_number: int):
