@@ -7,6 +7,8 @@ from discord.ext import commands
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='/', intents=intents)
 
+api_key = "LA4VRnbX6vSEN63YbHYvM53w"
+
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.dnd)
@@ -650,6 +652,42 @@ async def skin_command(ctx, skin_number: int):
             await ctx.send(embed=embed)
         else:
             await ctx.send("الرجاء إدخال رقم جلد صالح (من 1 إلى 3)")
+    else:
+        embed = discord.Embed(
+            title="التصريح ممنوع",
+            description="ليس لديك الصلاحية للوصول إلى هذا الخيار.",
+            color=discord.Color.red()
+        )
+        await ctx.send(embed=embed)
+
+@bot.command()
+    # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
+    if ctx.author.id in authorized_users:
+async def remove(ctx):
+    # التحقق من وجود صورة مرفقة
+    if len(ctx.message.attachments) == 0:
+        await ctx.send("Please attach an image to remove the background.")
+        return
+
+    # استخراج الصورة المرفقة
+    image_url = ctx.message.attachments[0].url
+
+    # إرسال طلب لـ remove.bg
+    response = requests.post(
+        'https://api.remove.bg/v1.0/removebg',
+        files={'image_url': image_url},
+        data={'size': 'auto'},
+        headers={'X-Api-Key': api_key},
+    )
+
+    # التحقق من حالة الاستجابة
+    if response.status_code == requests.codes.ok:
+        with open('no-bg.png', 'wb') as out:
+            out.write(response.content)
+        await ctx.send("Background removed!", file=discord.File('no-bg.png'))
+    else:
+        await ctx.send(f"Error: {response.status_code}, {response.text}")
+
     else:
         embed = discord.Embed(
             title="التصريح ممنوع",
