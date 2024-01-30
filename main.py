@@ -662,11 +662,9 @@ async def skin_command(ctx, skin_number: int):
 
 @bot.command()
 async def remove(ctx):
-    # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
-    if ctx.author.id in authorized_users:
-    # التحقق من وجود صورة مرفقة
-    if len(ctx.message.attachments) == 0:
-        await ctx.send("Please attach an image to remove the background.")
+    # التحقق من إذن المستخدم
+    if ctx.author.id not in authorized_users:
+        await ctx.send("You do not have permission to use this command.")
         return
 
     # استخراج الصورة المرفقة
