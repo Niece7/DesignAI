@@ -685,8 +685,7 @@ async def remove(ctx):
         await ctx.send("Background removed!", file=discord.File('no-bg.png'))
     else:
         await ctx.send(f"Error: {response.status_code}, {response.text}")
-
-    else:
+        else:
         embed = discord.Embed(
             title="التصريح ممنوع",
             description="ليس لديك الصلاحية للوصول إلى هذا الخيار.",
