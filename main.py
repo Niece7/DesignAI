@@ -664,7 +664,12 @@ async def skin_command(ctx, skin_number: int):
 async def remove(ctx):
     # التحقق من إذن المستخدم
     if ctx.author.id not in authorized_users:
-        await ctx.send("You do not have permission to use this command.")
+        embed = discord.Embed(
+            title="التصريح ممنوع",
+            description="ليس لديك الصلاحية للوصول إلى هذا الخيار.",
+            color=discord.Color.red()
+        )
+        await ctx.send(embed=embed)
         return
 
     # استخراج الصورة المرفقة
@@ -685,13 +690,6 @@ async def remove(ctx):
         await ctx.send("Background removed!", file=discord.File('no-bg.png'))
     else:
         await ctx.send(f"Error: {response.status_code}, {response.text}")
-        else:
-        embed = discord.Embed(
-            title="التصريح ممنوع",
-            description="ليس لديك الصلاحية للوصول إلى هذا الخيار.",
-            color=discord.Color.red()
-        )
-        await ctx.send(embed=embed)
 
 # Status Profile Bot
 @bot.event
