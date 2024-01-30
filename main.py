@@ -661,7 +661,7 @@ async def skin_command(ctx, skin_number: int):
         await ctx.send(embed=embed)
 
 @bot.command()
-async def remove(ctx):
+async def bg(ctx):
     # التحقق من إذن المستخدم
     if ctx.author.id not in authorized_users:
         embed = discord.Embed(
