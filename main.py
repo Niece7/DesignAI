@@ -662,7 +662,7 @@ async def skin_command(ctx, skin_number: int):
 
 @bot.command()
     # التحقق من أن المستخدم هو أحد المستخدمين المرخص لهم
-    if ctx.author.id in authorized_users:
+        if ctx.author.id in authorized_users:
 async def remove(ctx):
     # التحقق من وجود صورة مرفقة
     if len(ctx.message.attachments) == 0:
